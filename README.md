@@ -144,14 +144,6 @@ When the Deployment replica count changes, Kubernetes creates or removes Pods to
 
 The webhook endpoint must be reachable from GitHub's servers. A local `localhost` URL is not sufficient. If using a temporary Cloudflare Tunnel, keep it running and verify successful webhook delivery in GitHub's Recent Deliveries section.
 
-## Lessons Learned
-
-- CI and GitOps serve different purposes in an automated deployment workflow.
-- Versioned container images improve deployment traceability.
-- Argo CD reconciles Kubernetes resources against the desired state stored in Git.
-- Kubernetes Deployments manage ReplicaSets and application Pods.
-- Troubleshooting should begin with the logs and status of the component responsible for the failure.
-
 
 ## Future Improvements
 
