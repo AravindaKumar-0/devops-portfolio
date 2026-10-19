@@ -97,9 +97,23 @@ pipeline {
                             echo "No GitOps manifest changes."
                         else
                             git commit -m "Deploy portfolio image ${BUILD_NUMBER}"
-                            git push origin main
                         fi
                     '''
+
+                    withCredentials([
+                        usernamePassword(
+                            credentialsId: 'github-gitops-token',
+                            usernameVariable: 'GIT_USER',
+                            passwordVariable: 'GIT_TOKEN'
+                        )
+                    ]) {
+                        sh '''
+                            set -eu
+
+                            git -c credential.helper='!f() { echo "username=$GIT_USER"; echo "password=$GIT_TOKEN"; }; f' \
+                                push origin HEAD:main
+                        '''
+                    }
                 }
             }
         }
@@ -107,7 +121,7 @@ pipeline {
 
     post {
         success {
-            echo 'SUCCESS: Portfolio image pushed and GitOps manifest updated.'
+            echo 'SUCCESS: Image pushed to Docker Hub and GitOps deployment updated.'
         }
 
         failure {
