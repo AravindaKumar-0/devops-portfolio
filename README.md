@@ -16,18 +16,51 @@ Jenkins builds the application’s Docker image and pushes versioned images to D
 - **GitOps:** Argo CD
 - **Ingress:** Traefik
 
-## Architecture and Pipeline Flow
+## Architecture Diagram
 
-1. Developer pushes application changes to GitHub.
-2. Jenkins checks out the source code.
-3. Jenkins validates the required application files.
-4. Jenkins builds a Docker image and assigns a build-number tag.
-5. Jenkins pushes the versioned image and `latest` tag to Docker Hub.
-6. Jenkins checks out the GitOps repository and updates the Kubernetes Deployment image tag.
-7. Jenkins commits and pushes the manifest change.
-8. Argo CD detects the GitOps change and synchronizes the application.
-9. Kubernetes updates the Deployment and manages the ReplicaSets and Pods.
-10. Traefik routes HTTP traffic to the portfolio application.
+```mermaid
+flowchart TD
+    DEV["Developer"] -->|Push application code| SRC["GitHub Source Repository"]
+    SRC -->|Checkout source| JENKINS["Jenkins CI Pipeline"]
+
+    JENKINS --> VALIDATE["Validate Source Files"]
+    VALIDATE --> BUILD["Build Docker Image"]
+    BUILD --> PUSH["Push Versioned Image"]
+    PUSH --> HUB["Docker Hub Registry"]
+
+    PUSH --> UPDATE["Update Kubernetes Image Tag"]
+    UPDATE --> GITOPS["GitOps Repository"]
+
+    GITOPS -->|Detect manifest changes| ARGO["Argo CD"]
+    ARGO -->|Sync desired state| K8S["Kubernetes Deployment"]
+    HUB -.->|Pull image when needed| K8S
+
+    K8S --> RS["ReplicaSet"]
+    RS --> PODS["Application Pods"]
+    PODS --> SVC["Kubernetes Service"]
+    SVC --> ING["Traefik Ingress"]
+    ING --> WEB["Portfolio Website"]
+
+    DEV2["Developer"] -->|Change replicas in Git| GITOPS
+
+    classDef source fill:#e8f0fe,stroke:#4285f4,color:#111
+    classDef ci fill:#fff0db,stroke:#e69500,color:#111
+    classDef gitops fill:#e4f7e9,stroke:#279447,color:#111
+    classDef runtime fill:#f1e8ff,stroke:#8754c7,color:#111
+
+    class SRC source
+    class JENKINS,VALIDATE,BUILD,PUSH ci
+    class GITOPS,ARGO gitops
+    class K8S,RS,PODS,SVC,ING,WEB runtime
+```
+
+### Two Important Workflows
+
+**CI/CD workflow:** A source-code change triggers the Jenkins pipeline, which builds and pushes the Docker image and updates the GitOps manifest. Argo CD then synchronizes the change.
+
+**GitOps workflow:** A Kubernetes manifest change, such as adjusting the replica count, can be synchronized directly by Argo CD without running Jenkins.
+
+*Note: The diagram represents the intended image-pull flow; Kubernetes pulls images according to the Deployment configuration and node cache.*
 
 ## Repositories
 
