@@ -110,6 +110,49 @@ Keep the port-forward terminal running while accessing the website.
 - **Kubernetes scaling:** Changing the Deployment replica count allows Kubernetes to create or remove Pods to match the desired state.
 - **Networking:** Local access depends on the correct hostname configuration, Ingress routing, and port-forwarding setup.
 
+## Troubleshooting Notes
+
+### 1. Website Not Accessible
+
+**Checks:**
+- Verify the Kubernetes Pods are running.
+- Confirm the Service and Ingress resources exist.
+- Check that the Traefik port-forward is active.
+- Verify that `portfolio.local` resolves to `127.0.0.1` in the local hosts file.
+
+### 2. Jenkins Pipeline Failure
+
+**Checks:**
+- Review the failed stage in the Jenkins console output.
+- Verify that the required source files exist.
+- Check Docker Hub credentials and registry push errors.
+- Verify that GitHub credentials permit the GitOps repository update.
+
+### 3. Argo CD Not Reflecting a Change
+
+**Checks:**
+- Confirm the change was committed and pushed to the GitOps repository.
+- Check the Argo CD Application sync status.
+- Review the application health status and synchronization errors.
+- Verify that the correct manifest path is configured.
+
+### 4. Replica Count Changes
+
+When the Deployment replica count changes, Kubernetes creates or removes Pods to match the desired state. Argo CD can apply replica-count changes from Git without requiring a Jenkins build.
+
+### 5. GitHub Webhook
+
+The webhook endpoint must be reachable from GitHub's servers. A local `localhost` URL is not sufficient. If using a temporary Cloudflare Tunnel, keep it running and verify successful webhook delivery in GitHub's Recent Deliveries section.
+
+## Lessons Learned
+
+- CI and GitOps serve different purposes in an automated deployment workflow.
+- Versioned container images improve deployment traceability.
+- Argo CD reconciles Kubernetes resources against the desired state stored in Git.
+- Kubernetes Deployments manage ReplicaSets and application Pods.
+- Troubleshooting should begin with the logs and status of the component responsible for the failure.
+
+
 ## Future Improvements
 
 - Verify and document successful GitHub webhook delivery.
