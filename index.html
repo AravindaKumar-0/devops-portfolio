@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aravinda Kumar | DevOps and cloud engineer</title>
+  <meta name="description" content="Aravinda Kumar S, final-year computer science student in Bengaluru. Jenkins, Kubernetes, Terraform and AWS projects with source code.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Aravinda Kumar, home"><span aria-hidden="true">AK</span> Aravinda Kumar S</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Toolkit</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a class="nav-contact" href="#contact">Get in touch <span aria-hidden="true">↗</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero page-shell" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Final-year student, DevOps and cloud</p>
+        <h1>Aravinda <span>Kumar S</span></h1>
+        <p class="hero-intro">I build CI/CD pipelines and cloud infrastructure, from the first commit to a running pod.</p>
+        <a class="text-link" href="#projects">See the projects <span aria-hidden="true">↓</span></a>
+      </div>
+
+      <div class="workflow" aria-label="The five-stage pipeline that delivers this page">
+        <div class="workflow-topline"><span>How this page ships</span><span>5 stages</span></div>
+        <ol class="workflow-list">
+          <li><span class="workflow-index">01</span><span class="workflow-label">Commit to GitHub</span><span class="workflow-mark">↘</span></li>
+          <li><span class="workflow-index">02</span><span class="workflow-label">Build with Jenkins</span><span class="workflow-mark">↘</span></li>
+          <li><span class="workflow-index">03</span><span class="workflow-label">Publish to Docker Hub</span><span class="workflow-mark">↘</span></li>
+          <li><span class="workflow-index">04</span><span class="workflow-label">Sync with Argo CD</span><span class="workflow-mark">↘</span></li>
+          <li><span class="workflow-index">05</span><span class="workflow-label">Run on Kubernetes</span><span class="workflow-mark workflow-mark-final">↗</span></li>
+        </ol>
+        <p class="workflow-caption"><span aria-hidden="true">*</span> Every push to main rebuilds and redeploys this page.</p>
+      </div>
+    </section>
+
+    <section class="section page-shell about-section" id="about">
+      <div class="section-heading">
+        <p class="eyebrow">00 / About</p>
+        <div>
+          <h2>Pipelines I can<br>explain end to end.</h2>
+        </div>
+      </div>
+      <div class="about-copy">
+        <p>I'm a final-year computer science student at CMR Institute of Technology in Bengaluru. I build delivery pipelines from start to finish: code in Git, images built by Jenkins, deployments to Kubernetes, and infrastructure written in Terraform.</p>
+        <p>Every project below is in a public repository with a README that says what runs and how to reproduce it. I'm looking for a DevOps or cloud engineer role.</p>
+      </div>
+    </section>
+
+    <section class="section page-shell" id="skills">
+      <div class="section-heading">
+        <p class="eyebrow">01 / Toolkit</p>
+        <div>
+          <h2>Learning by<br>building.</h2>
+          <p class="section-intro">Tools I have used hands-on.</p>
+        </div>
+      </div>
+      <div class="toolkit">
+        <div class="toolkit-row">
+          <h3><span>01</span> Cloud and infrastructure</h3>
+          <ul><li>AWS: EC2</li><li>VPC</li><li>ALB</li><li>Auto Scaling</li><li>IAM</li><li>CloudWatch</li><li>ECR</li><li>Terraform</li></ul>
+        </div>
+        <div class="toolkit-row">
+          <h3><span>02</span> Containers</h3>
+          <ul><li>Docker</li><li>Docker Compose</li><li>Kubernetes (K3s)</li><li>Helm</li></ul>
+        </div>
+        <div class="toolkit-row">
+          <h3><span>03</span> Delivery</h3>
+          <ul><li>Jenkins</li><li>Argo CD</li><li>Git</li><li>GitHub</li></ul>
+        </div>
+        <div class="toolkit-row">
+          <h3><span>04</span> Monitoring</h3>
+          <ul><li>Prometheus</li><li>Grafana</li></ul>
+        </div>
+        <div class="toolkit-row">
+          <h3><span>05</span> Linux and scripting</h3>
+          <ul><li>Ubuntu</li><li>Amazon Linux</li><li>Red Hat</li><li>Bash</li><li>Python</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects-band" id="projects">
+      <div class="page-shell projects-content">
+        <div class="projects-heading">
+          <p class="eyebrow">02 / Work</p>
+          <h2>Projects</h2>
+        </div>
+
+        <div class="project-list">
+          <article class="project-note">
+            <span class="note-marker" aria-hidden="true">↳</span>
+            <div>
+              <p class="note-title">End-to-end CI/CD and GitOps</p>
+              <p class="note-desc">This page is the demo. A push to GitHub starts a Jenkins build that tests the page, builds a Docker image and publishes it to Docker Hub. Jenkins then commits the new image tag to a separate GitOps repository, and Argo CD syncs it to a Kubernetes cluster.</p>
+              <ul class="note-meta">
+                <li>GitHub</li><li>Jenkins</li><li>Docker Hub</li><li>Argo CD</li><li>Kubernetes</li>
+              </ul>
+            </div>
+            <span class="note-index">Building</span>
+          </article>
+
+          <article class="project-note">
+            <span class="note-marker" aria-hidden="true">↳</span>
+            <div>
+              <p class="note-title">Auto Scaling infrastructure with Terraform</p>
+              <p class="note-desc">A multi-AZ AWS setup built from Terraform modules for the VPC, security groups, load balancer and Auto Scaling group, plus a bastion host. State is stored remotely in S3. A Jenkins pipeline runs format check, validate and plan, waits for manual approval, then applies.</p>
+              <ul class="note-meta">
+                <li>Terraform</li><li>AWS</li><li>Jenkins</li><li>S3 remote state</li>
+              </ul>
+              <a class="note-link" href="https://github.com/AravindaKumar-0/Autoscaling_AWS_with_Terraform" target="_blank" rel="noreferrer">View the repository</a>
+            </div>
+            <span class="note-index">Deployed</span>
+          </article>
+
+          <article class="project-note">
+            <span class="note-marker" aria-hidden="true">↳</span>
+            <div>
+              <p class="note-title">Zero Touch Kubernetes CI/CD</p>
+              <p class="note-desc">A Jenkins pipeline that builds frontend and backend images, tags them with the build number, pushes them to Docker Hub and deploys them to a K3s cluster with Helm. It checks the rollout and rolls back automatically if it fails. Pods run with readiness and liveness probes and resource limits.</p>
+              <ul class="note-meta">
+                <li>Jenkins</li><li>Docker</li><li>Helm</li><li>K3s</li><li>Traefik</li>
+              </ul>
+              <a class="note-link" href="https://github.com/AravindaKumar-0/zero-touch-k8s" target="_blank" rel="noreferrer">View the repository</a>
+            </div>
+            <span class="note-index">Deployed</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section page-shell" id="contact">
+      <p class="eyebrow">03 / Contact</p>
+      <div class="contact-content">
+        <h2>Let's talk<br>about a<br><span>DevOps role.</span></h2>
+        <p>I can walk you through any project live, including how it fails and how I fixed it.</p>
+        <div class="contact-links" aria-label="Contact links">
+          <a href="mailto:aravindkumars0704@gmail.com">Email</a>
+          <a href="https://github.com/AravindaKumar-0" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://linkedin.com/in/aravinda-kumar-s-bb6619380/" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span>Aravinda Kumar</span></footer>
+</body>
+</html>
