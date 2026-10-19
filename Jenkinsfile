@@ -10,6 +10,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'devops-portfolio'
+        IMAGE_REPO = 'imaravinda/devops-portfolio'
     }
 
     stages {
@@ -58,16 +59,13 @@ pipeline {
                         LOCAL_IMAGE="${IMAGE_NAME}:${BUILD_NUMBER}"
                         REMOTE_IMAGE="${DH_USER}/${IMAGE_NAME}"
 
-                        # Tag local images with the Docker Hub repository name.
                         docker tag "$LOCAL_IMAGE" "${REMOTE_IMAGE}:${BUILD_NUMBER}"
                         docker tag "$LOCAL_IMAGE" "${REMOTE_IMAGE}:latest"
 
-                        # Authenticate using the Jenkins-managed access token.
                         echo "$DH_TOKEN" | docker login \
                             --username "$DH_USER" \
                             --password-stdin
 
-                        # Publish both versioned and latest tags.
                         docker push "${REMOTE_IMAGE}:${BUILD_NUMBER}"
                         docker push "${REMOTE_IMAGE}:latest"
 
@@ -76,11 +74,40 @@ pipeline {
                 }
             }
         }
+
+        stage('Update GitOps Manifest') {
+            steps {
+                dir('gitops') {
+                    git branch: 'main',
+                        credentialsId: 'github-gitops-token',
+                        url: 'https://github.com/AravindaKumar-0/devops-portfolio-gitops.git'
+
+                    sh '''
+                        set -eu
+
+                        sed -i "s#image: ${IMAGE_REPO}:.*#image: ${IMAGE_REPO}:${BUILD_NUMBER}#" \
+                            k8s/deployment.yaml
+
+                        git config user.name "Jenkins"
+                        git config user.email "jenkins@localhost"
+
+                        git add k8s/deployment.yaml
+
+                        if git diff --cached --quiet; then
+                            echo "No GitOps manifest changes."
+                        else
+                            git commit -m "Deploy portfolio image ${BUILD_NUMBER}"
+                            git push origin main
+                        fi
+                    '''
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo 'SUCCESS: Portfolio image built and pushed to Docker Hub.'
+            echo 'SUCCESS: Portfolio image pushed and GitOps manifest updated.'
         }
 
         failure {
