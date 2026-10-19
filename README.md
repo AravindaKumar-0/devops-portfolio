@@ -18,6 +18,8 @@ Jenkins builds the application’s Docker image and pushes versioned images to D
 
 ## Architecture Diagram
 
+## Architecture Diagram
+
 ```mermaid
 flowchart TD
     DEV["Developer"] -->|Push application code| SRC["GitHub Source Repository"]
@@ -27,8 +29,7 @@ flowchart TD
     VALIDATE --> BUILD["Build Docker Image"]
     BUILD --> PUSH["Push Versioned Image"]
     PUSH --> HUB["Docker Hub Registry"]
-
-    PUSH --> UPDATE["Update Kubernetes Image Tag"]
+    PUSH --> UPDATE["Update Image Tag"]
     UPDATE --> GITOPS["GitOps Repository"]
 
     GITOPS -->|Detect manifest changes| ARGO["Argo CD"]
@@ -41,18 +42,17 @@ flowchart TD
     SVC --> ING["Traefik Ingress"]
     ING --> WEB["Portfolio Website"]
 
-    DEV2["Developer"] -->|Change replicas in Git| GITOPS
-
-    classDef source fill:#e8f0fe,stroke:#4285f4,color:#111
-    classDef ci fill:#fff0db,stroke:#e69500,color:#111
-    classDef gitops fill:#e4f7e9,stroke:#279447,color:#111
-    classDef runtime fill:#f1e8ff,stroke:#8754c7,color:#111
-
-    class SRC source
-    class JENKINS,VALIDATE,BUILD,PUSH ci
-    class GITOPS,ARGO gitops
-    class K8S,RS,PODS,SVC,ING,WEB runtime
+    DEV -->|Change replicas in Git| GITOPS
 ```
+
+### How the workflow works
+
+- **CI/CD:** Jenkins builds and pushes the image, then updates the GitOps manifest.
+- **GitOps:** Argo CD synchronizes manifest changes from Git.
+- **Runtime:** Kubernetes manages replicas and Pods; Traefik routes traffic to the website.
+
+A replica-count change in the GitOps repository does not require a Jenkins build.
+
 
 ### Two Important Workflows
 
