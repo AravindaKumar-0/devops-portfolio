@@ -16,7 +16,6 @@ Jenkins builds the application’s Docker image and pushes versioned images to D
 - **GitOps:** Argo CD
 - **Ingress:** Traefik
 
-## Architecture Diagram
 
 ## Architecture Diagram
 
