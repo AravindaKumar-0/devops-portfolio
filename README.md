@@ -12,7 +12,7 @@ Jenkins builds the application’s Docker image and pushes versioned images to D
 - **CI/CD:** Jenkins
 - **Containerization:** Docker
 - **Container Registry:** Docker Hub
-- **Orchestration:** Kubernetes (Rancher Desktop/K3s)
+- **Orchestration:** Kubernetes (Rancher Desktop/ K3s)
 - **GitOps:** Argo CD
 - **Ingress:** Traefik
 
@@ -141,7 +141,7 @@ When the Deployment replica count changes, Kubernetes creates or removes Pods to
 
 ### 5. GitHub Webhook
 
-The webhook endpoint must be reachable from GitHub's servers. A local `localhost` URL is not sufficient. If using a temporary Cloudflare Tunnel, keep it running and verify successful webhook delivery in GitHub's Recent Deliveries section.
+The webhook endpoint must be reachable from GitHub's servers. A local `localhost` URL is not sufficient. If using a temporary Cloudflare Tunnel, keep it running and verify successful webhook delivery in GitHub's Recent Deliveries section.  
 
 
 ## Future Improvements
